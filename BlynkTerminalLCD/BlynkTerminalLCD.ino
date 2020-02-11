@@ -187,6 +187,10 @@ void setup()
   // Hardware LCD. SDA=GPIO 4, SCL=GPIO 5
   lcd.begin(4,5);
   lcd.backlight();
+  lcd.setCursor(2,0);
+  lcd.print("Me izzu wait");
+  lcd.setCursor(2,1);
+  lcd.print("da interneto");
 
   // Initialize switch
   pinMode(switchPin, INPUT);
