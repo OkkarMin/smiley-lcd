@@ -14,8 +14,8 @@
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 // For Time and Day
-String timeString = "";
-String dateString = "";
+String timeString = "hh:mm:ss";
+String dateString = "dd:MMM:WDD";
 String weekdayTable[] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 String monthTable[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
