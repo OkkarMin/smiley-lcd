@@ -22,11 +22,11 @@ char pass[] = "phoehtaungwin";
 int switchPin = 16; // at D0
 
 // For Time and Day
+int timeAndDateTimerID;
 String timeString = "hh:mm:ss";
 String dateString = "dd:MMM:WDD";
 String weekdayTable[] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 String monthTable[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-int timeAndDateTimerID;
 
 /***** END Constants *****/
 
@@ -152,13 +152,27 @@ BLYNK_WRITE(V0)
     terminal.println("Acknowledged!");
     terminal.println("----------------");
     terminal.println("");
+    
+    // Ensure everything is sent to BlynkApp Terminal
+    terminal.flush();
+
+    // Wait for another button press to display Time & Date
+    while(1) {
+      if (!digitalRead(switchPin)) {
+        // Resume Time & Date from displaying
+        timer.enable(timeAndDateTimerID);
+        lcd.clear();
+      }
+    }
+
+    // Display READ on BlynkApp Terminal
+    terminal.println("READ!");
+    terminal.println("----------------");
+    terminal.println("");
+    
+    // Ensure everything is sent to BlynkApp Terminal
+    terminal.flush();
   }
-
-  // Ensure everything is sent to BlynkApp Terminal
-  terminal.flush();
-
-  // Resume Time & Date from displaying
-  timer.enable(timeAndDateTimerID);
 }
 
 /***** END BLYNK Related Functions *****/
@@ -169,10 +183,13 @@ void setup()
   // Debug console 
   Serial.begin(9600);
 
-  // Init LCD
+  // Initialize LCD
   // Hardware LCD. SDA=GPIO 4, SCL=GPIO 5
   lcd.begin(4,5);
   lcd.backlight();
+
+  // Initialize switch
+  pinMode(switchPin, INPUT);
 
   // Start the Blynk Magic
   Blynk.begin(auth, ssid, pass);
