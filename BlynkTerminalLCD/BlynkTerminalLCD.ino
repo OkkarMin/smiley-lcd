@@ -125,6 +125,8 @@ void checkPin()
         // Display acknowledgement on BlynkApp Terminal
         terminal.println("-----Acknowledged-----");
         terminal.println("");
+        terminal.println(getFormattedTimeString());
+        terminal.println("");
         terminal.flush();
   
         // Resume Time & Date display
@@ -212,9 +214,9 @@ BLYNK_WRITE(V0)
     flashBacklight = true;
 
     // Display on BlynkApp Terminal
-    terminal.println("-----Displayed-----");
-    terminal.println();
     terminal.println("-----Waiting For ACK-----");
+    terminal.println();
+    terminal.println(getFormattedTimeString());
     terminal.println();
     terminal.flush();
   }
